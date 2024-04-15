@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/50eedbacb3.js"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container-fluid"
+		style="max-width: 1600px; max-height: 800px">
+		<div class="row" style="height: 786px">
+			<div class="col-lg-2" style="background: #289d8c">
+				<div th:replace="/common/menuadmin :: menu"></div>
+			</div>
+			<div class="col-sm-10 pe-0">
+				<div th:replace="/common/nav :: nav"></div>
+				<div class="row justify-content-center m-0">
+					<h1 class="text-center mt-3 mb-3" style="color: #289d8c">Danh
+						Sách Đã Giao Xe</h1>
+					<div class="d-flex flex-row mb-3">
+						<div class="p-2">
+							<a class="btn btn-outline-primary" th:href="@{/car/Listgiaoxe/export}">Export To Excel</a>
+						</div>
+					</div>
+					<!-- drop sort -->
+					<!-- <div class="dropdown mb-2">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Sắp Xếp
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/car/sort?field=giaThue">Theo Giá</a></li>
+            <li><a class="dropdown-item" href="/car/sort?field=trangThai">Theo Trạng Thái</a></li>
+            <li><a class="dropdown-item" href="/car/sort?field=hangXe">Theo Hãng</a></li>
+          </ul>
+        </div> -->
+
+					<div style="height: 600px; overflow-y: scroll;">
+						<table class="table table-bordered text-center">
+							<thead>
+								<tr>
+									<th>Mã Hợp Đồng</th>
+									<th>Ngày Nhận Xe</th>
+									<th>Nội Dung Bàn Giao</th>
+									<th>Tình Trạng Xe</th>
+									<th>Ngoại Thất Xe</th>
+									<th>Nội Thất Xe</th>
+									<th>Động Cơ Xe</th>
+									<th>Giấy Tờ Bàn Giao</th>
+									<th>Hình Ảnh 1</th>
+									<th>Hình Ảnh 2</th>
+									<th>Hình Ảnh 3</th>
+									<th>Hình Ảnh 4</th>
+									<th>Nhân Viên</th>
+									<!-- <th scope="col"><i class="fa-solid fa-gear"></i></th> -->
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${dsnxe}">
+									<td th:text="${item.hopDong.maHopDong}"></td>
+									<td th:text="${item.ngayGiaoXe}"></td>
+									<td th:text="${item.noiDung}"></td>
+									<td th:text="${item.tinhTrang}"></td>
+									<td th:text="${item.ngoaiThat}"></td>
+									<td th:text="${item.noiThat}"></td>
+									<td th:text="${item.dongCo}"></td>
+									<td th:text="${item.giayToXe}"></td>
+									<td th:text="${item.imgDauXe}"></td>
+									<td th:text="${item.imgDuoiXe}"></td>
+									<td th:text="${item.imgSuonPXe}"></td>
+									<td th:text="${item.imgSuonTXe}"></td>
+									<td th:text="${item.hopDong.nhanVien.maNV}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

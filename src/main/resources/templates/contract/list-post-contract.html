@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="https://kit.fontawesome.com/50eedbacb3.js"
+	crossorigin="anonymous"></script>
+<body>
+	<div class="container-fluid"
+		style="max-width: 1600px; max-height: 800px">
+		<div class="row" style="height: 786px">
+			<div class="col-lg-2" style="background: #289d8c">
+				<th:block th:replace="common/menuadmin :: menu"></th:block>
+			</div>
+			<div class="col-sm-10 pe-0 ps-0">
+				<th:block th:replace="common/nav :: nav"></th:block>
+				<div class="row justify-content-center m-0">
+					<h1 class="text-center mt-3 mb-3" style="color: #289d8c">Danh
+						Sách Hợp Đồng (List of Contracts)</h1>
+					<div style="height: 600px; overflow-y: scroll;">
+						<table class="table table-bordered text-center">
+							<thead>
+								<tr>
+									<th scope="col">Tên xe (Car Name)</th>
+									<th scope="col">Biển số (License Plate)</th>
+									<th scope="col">Tên khách hàng (Customer Name)</th>
+									<th scope="col">Số điện thoại (Phone Number)</th>
+									<th scope="col">Ngày tạo (Created Date)</th>
+									<th scope="col">Giá thuê/ngày (Daily Rental Price)</th>
+									<th scope="col">Ngày bắt đầu (Start Date)</th>
+									<th scope="col">Ngày kết thúc (End Date)</th>
+									<th scope="col">Thành tiền (Total Price)</th>
+									<th scope="col">Nhân viên (Staff)</th>
+									<th scope="col" colspan="2"><i class="fa-solid fa-gear"></i></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="contract : ${listContract}">
+									<td th:text="${contract.xe.tenXe}"></td>
+									<td th:text="${contract.xe.bienSo}"></td>
+									<td
+										th:text="${contract.khachHang.tenKH} + ' ' + ${contract.khachHang.hoKH}"></td>
+									<td th:text="${contract.khachHang.soDienThoai}"></td>
+									<td th:text="${contract.ngayTao}"></td>
+									<td id="giaThue" th:text="${contract.giaThue}"></td>
+									<td th:text="${contract.ngayBatDau}"></td>
+									<td th:text="${contract.ngayKetThuc}"></td>
+									<td id="tongTien" th:text="${contract.tongTien}"></td>
+									<td th:text="${contract.nhanVien.maNV}"></td>
+									<td><a th:href="@{/car/giaoxe/edit/{contract.maHopDong}}" class="text-decoration-none">Giao (Deliver)</a></td>
+									<td><a th:href="@{/car/qlTraXe/edit/{contract.maHopDong}}" class="text-decoration-none">Nhận (Receive)</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// Format giá thuê/ngày và thành tiền
+		var giaThueElements = document.querySelectorAll("#giaThue");
+		var tongTienElements = document.querySelectorAll("#tongTien");
+
+		var formatter = new Intl.NumberFormat("vi-VN", {
+			style : "currency",
+			currency : "VND"
+		});
+
+		giaThueElements.forEach(function(element) {
+			var giaThue = parseFloat(element.textContent);
+			element.textContent = formatter.format(giaThue); // Chuyển đổi thành nghìn đồng
+		});
+
+		tongTienElements.forEach(function(element) {
+			var tongTien = parseFloat(element.textContent);
+			element.textContent = formatter.format(tongTien);
+		});
+	});
+</script>
+</html>

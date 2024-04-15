@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/50eedbacb3.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="container-fluid"
+		style="max-width: 1600px; max-height: 800px">
+		<div class="row" style="height: 786px">
+			<div class="col-lg-2" style="background: #289d8c">
+				<div th:include="/common/menuadmin"></div>
+			</div>
+
+
+			<div class="col-sm-10 pe-0 ps-0">
+				<div th:include="/common/nav"></div>
+
+
+				<div class="row justify-content-center m-0">
+					<h1 class="text-center mt-3 mb-3" style="color: #289d8c">Thống
+						Kê Hợp Đồng</h1>
+					<div class="row">
+						<div class="col-sm-6">
+
+							<div class="d-flex flex-row mb-3">
+								<div class="p-2">
+									<div class="dropdown mb-2">
+										<button class="btn btn-secondary dropdown-toggle"
+											type="button" id="dropdownMenuButton1"
+											data-bs-toggle="dropdown" aria-expanded="false">
+											Trạng thái hợp đồng</button>
+										<ul class="dropdown-menu"
+											aria-labelledby="dropdownMenuButton1">
+											<li><a class="dropdown-item btn btn-outline-success"
+												th:href="@{/lstthdnull}">Chưa xử lý</a></li>
+											<li><a class="dropdown-item btn btn-outline-success"
+												th:href="@{/lstthd}">Đã xử lý</a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="p-2">
+									<a class="btn btn-outline-primary"
+										th:href="@{/car/listHD/export}">Export To Excel</a>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-6">
+							<form class="d-flex mb-3" th:action="@{/car/report}">
+								<input class="form-control me-2" type="date"
+									placeholder="Search" aria-label="Search" name="key">
+								<button class="btn btn-outline-success" type="submit">Search</button>
+							</form>
+						</div>
+					</div>
+					<!-- drop sort -->
+
+
+
+
+					<div style="height: 600px; overflow-y: scroll;">
+						<table class="table table-bordered text-center">
+							<thead>
+								<tr>
+									<th>Mã Hợp Đồng</th>
+									<th>Trạng Thái</th>
+									<th>Nhân Viên</th>
+									<th>Khách Hàng</th>
+									<th>Biến Số Xe</th>
+									<th>Tên Xe</th>
+									<th>Ngày Bắt Đầu</th>
+									<th>Ngày Kết Thúc</th>
+									<th>Ngày Tạo</th>
+									<th>Tổng Tiền</th>
+
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${reports}">
+									<td>HD<span th:text="${item.maHopDong}"></span></td>
+									<td>
+										<p class="card-text fs-6 " style="font-size: 12px">
+											<span th:if="${item.nhanVien.tenNV} != null">Đã Xác
+												Nhân</span> <span th:unless="${item.nhanVien.tenNV} != null">Chưa
+												Xác Nhận</span>
+										</p>
+									</td>
+									<td>
+										<p class="card-text fs-6 " style="font-size: 12px"
+											th:text="${item.nhanVien.tenNV ?: 'Chưa Có Nhân Viên'}"></p>
+									</td>
+									<td th:text="${item.khachHang.tenKH}"></td>
+									<td th:text="${item.xe.bienSo}"></td>
+									<td th:text="${item.xe.tenXe}"></td>
+									<td th:text="${item.ngayBatDau}"></td>
+									<td th:text="${item.ngayKetThuc}"></td>
+									<td th:text="${item.ngayTao}"></td>
+									<td id="money" th:text="${item.tongTien}"></td>
+								</tr>
+							</tbody>
+						</table>
+
+
+						<var th:set="totalPrice=0"></var>
+						<ul th:each="report : ${reports}">
+						</ul>
+
+						<p id="money2" class="fs-3 fw-bold">
+							Tổng doanh thu là: <span th:text="${totalPrice}"></span>
+						</p>
+					</div>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<script>
+		var moneyCells = document.querySelectorAll('#money');
+		moneyCells.forEach(function(cell) {
+			var moneyValue = parseFloat(cell.innerHTML);
+			cell.innerHTML = formatCurrency(moneyValue);
+		});
+
+		function formatCurrency(amount) {
+			return new Intl.NumberFormat('vi-VN', {
+				style : 'currency',
+				currency : 'VND'
+			}).format(amount);
+		}
+	</script>
+
+	<script>
+		function formatCurrency(amount) {
+			return new Intl.NumberFormat('vi-VN', {
+				style : 'currency',
+				currency : 'VND'
+			}).format(amount);
+		}
+
+		var totalPriceElement = document.getElementById("money2");
+		var totalPriceValue = parseFloat("${totalPrice}");
+		totalPriceElement.innerHTML = "Tổng doanh thu là: "
+				+ formatCurrency(totalPriceValue);
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

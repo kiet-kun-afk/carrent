@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/50eedbacb3.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="container-fluid"
+		style="max-width: 1600px; max-height: 800px">
+		<div class="row" style="height: 786px">
+			<div class="col-lg-2" style="background: #289d8c">
+				<div th:include="/common/menuadmin"></div>
+			</div>
+
+
+			<div class="col-sm-10 pe-0 ps-0">
+				<div th:include="/common/nav"></div>
+
+
+				<div class="row justify-content-center m-0">
+					<h1 class="text-center mt-3 mb-3" style="color: #289d8c">Danh
+						Sách Nhân Viên</h1>
+
+					<!-- drop sort -->
+					<div class="dropdown mb-2">
+						<button class="btn btn-secondary dropdown-toggle" type="button"
+							id="dropdownMenuButton1" data-bs-toggle="dropdown"
+							aria-expanded="false">Sắp Xếp</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item"
+								th:href="@{/staff/sort(field1='maNV')}">Theo Mã Nhân Viên</a></li>
+							<li><a class="dropdown-item"
+								th:href="@{/staff/sort(field1='trangThai')}">Theo Trạng Thái</a></li>
+							<li><a class="dropdown-item"
+								th:href="@{/staff/sort(field1='huyen')}">Theo Quận</a></li>
+							<li><a class="dropdown-item"
+								th:href="@{/staff/sort(field1='chucVu')}">Theo Chức Vụ</a></li>
+						</ul>
+					</div>
+
+
+					<div style="height: 600px; overflow-y: scroll;">
+						<table class="table table-bordered text-center">
+							<thead>
+								<tr>
+									<th scope="col">Mã Nhân Viên</th>
+									<th scope="col">Họ Nhân Viên</th>
+									<th scope="col">Tên Nhân Viên</th>
+									<th scope="col">Giới Tính</th>
+									<th scope="col">Số Điện Thoại</th>
+									<th scope="col">Ngày Sinh</th>
+									<th scope="col">Email</th>
+									<th scope="col">Thành Phố</th>
+									<th scope="col">Quận / Huyện</th>
+									<th scope="col">Phường / Xã</th>
+									<th scope="col">Đường</th>
+									<th scope="col">Chức Vụ</th>
+									<th scope="col">Trạng thái hoạt động</th>
+									<th scope="col"><i class="fa-solid fa-gear"></i></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="staff : ${lsnv}">
+									<td th:text="${staff.maNV}"></td>
+									<td th:text="${staff.hoNV}"></td>
+									<td th:text="${staff.tenNV}"></td>
+									<td th:text="${staff.gioiTinh ? 'Nam' : 'Nữ'}"></td>
+									<td th:text="${staff.soDienThoai}"></td>
+									<td th:text="${staff.ngaySinh}"></td>
+									<td th:text="${staff.email}"></td>
+									<td th:text="${staff.tinh}"></td>
+									<td th:text="${staff.huyen}"></td>
+									<td th:text="${staff.xa}"></td>
+									<td th:text="${staff.duong}"></td>
+									<td th:text="${staff.chucVu ? 'Quản Lý' : 'Nhân Viên'}"></td>
+									<td th:text="${staff.trangThai ? 'Đang hoạt động' : 'OFF' }"></td>
+									<td><a th:href="@{/staff/edit/[[${staff.maNV}]]}"
+										class="text-decoration-none"> <i
+											class="fa-solid fa-pencil"></i>
+									</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- 
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-arrow-left"></i></a></li>
+      <li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-arrow-right"></i></a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  -->
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+</body>
+</html>

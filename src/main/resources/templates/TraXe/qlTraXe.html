@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/50eedbacb3.js"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	<div class="container-fluid"
+		style="max-width: 1600px; max-height: 800px">
+		<div class="row" style="height: 786px">
+			<div class="col-lg-2" style="background: #289d8c">
+				<div th:include="/common/menuadmin"></div>
+			</div>
+
+
+			<div class="col-sm-10 pe-0 ps-0">
+				<div th:include="/common/nav"></div>
+				<form th:action="@{/car/qlTraXe/add}" method="post"
+					th:object="${traxemodel}">
+					<div class="row mt-3 mb-3">
+						<div class="col-sm-6">
+
+							<div class="mb3">
+								<h3>
+									Hợp Đồng: <span th:text="${hd.maHopDong}"></span>
+								</h3>
+								<input type="hidden" class="form-control" name="id"
+									value="${hd.maHopDong}">
+								<hr>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Đầu xe</label> <input type="file"
+									class="form-control" name="imgDauXe">
+							</div>
+							<div class="mb-4">
+								<label class="form-label">Đuôi xe</label> <input type="file"
+									class="form-control" name="imgDuoiXe">
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Sườn trái</label> <input type="file"
+									class="form-control" name="imgSuonTXe">
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Sườn phải</label> <input type="file"
+									class="form-control" name="imgSuonPXe">
+							</div>
+						</div>
+						<div class="col-xl-6">
+							<h2 class="text-center">Thông Tin Bàn Giao</h2>
+							<!-- Ngay dang kiem -->
+							<div class="mb3">
+								<label class="form-label" for="ngayNhanxe">Ngày Nhận Bàn
+									Giao</label> <input type="text" class="form-control" id="ngayNhanxe"
+									name="ngayNhanxe" value="2023/09/15" />
+								<div class="form-error"
+									th:classappend="${errorMessageD == null} ? 'd-lg-none' : ''">
+									<span class="error-item1">
+										<p>
+											<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+												th:text="${errorMessageD}"></span>
+										</p>
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="mt-3">
+										<label class="form-label" for="giayToxe">Giấy Tờ Xe</label>
+										<textarea class="form-control" id="giayToxe" name="giayToxe"
+											rows="2"></textarea>
+										<div class="form-error"
+											th:classappend="${errorMessageG == null} ? 'd-lg-none' : ''">
+											<span class="error-item1">
+												<p>
+													<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+														th:text="${errorMessageG}"></span>
+												</p>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="mt-3">
+										<label class="form-label" for="tinhTrang">Tình Trạng
+											Xe</label>
+										<textarea class="form-control" id="tinhTrang" name="tinhTrang"
+											rows="2"></textarea>
+										<div class="form-error"
+											th:classappend="${errorMessageT == null} ? 'd-lg-none' : ''">
+											<span class="error-item1">
+												<p>
+													<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+														th:text="${errorMessageT}"></span>
+												</p>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="mt-3">
+										<label class="form-label" for="ngoaiThat">Ngoại Thất</label>
+										<textarea class="form-control" id="ngoaiThat" name="ngoaiThat"
+											rows="2"></textarea>
+										<div class="form-error"
+											th:classappend="${errorMessageNN == null} ? 'd-lg-none' : ''">
+											<span class="error-item1">
+												<p>
+													<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+														th:text="${errorMessageNN}"></span>
+												</p>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="mt-3">
+										<label class="form-label" for="noiThat">Nội Thất</label>
+										<textarea class="form-control" id="noiThat" name="noiThat"
+											rows="2"></textarea>
+										<div class="form-error"
+											th:classappend="${errorMessageNT == null} ? 'd-lg-none' : ''">
+											<span class="error-item1">
+												<p>
+													<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+														th:text="${errorMessageNT}"></span>
+												</p>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="mt-3">
+										<label class="form-label" for="dongCo">Động Cơ</label>
+										<textarea class="form-control" id="dongCo" name="dongCo"
+											rows="2"></textarea>
+										<div class="form-error"
+											th:classappend="${errorMessageDC == null} ? 'd-lg-none' : ''">
+											<span class="error-item1">
+												<p>
+													<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+														th:text="${errorMessageDC}"></span>
+												</p>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="mt-3">
+										<label class="form-label" for="noiDung">Nội Dung Bàn
+											Giao</label>
+										<textarea class="form-control" id="noiDung" name="noiDung"
+											rows="2"></textarea>
+										<div class="form-error"
+											th:classappend="${errorMessageND == null} ? 'd-lg-none' : ''">
+											<span class="error-item1">
+												<p>
+													<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+														th:text="${errorMessageND}"></span>
+												</p>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row mb-3 mt-3" style="padding-top: 60px;">
+						<div class="form-error"
+							th:classappend="${errorMessageHD == null} ? 'd-lg-none' : ''">
+							<span class="error-item1">
+								<p>
+									<i class="fa-solid fa-xmark" style="color: #e91c1c;"></i> <span
+										th:text="${errorMessageHD}"></span>
+								</p>
+							</span>
+						</div>
+						<div class="d-flex justify-content-center">
+							<button class="btn btn-success" style="font-size: 26px;">CẬP
+								NHẬT</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>

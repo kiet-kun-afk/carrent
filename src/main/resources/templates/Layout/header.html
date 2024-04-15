@@ -1,0 +1,54 @@
+<!-- Header -->
+<div class="c-header" th:fragment="header">
+    <div class="c-container">
+        <a th:href="@{/car/index}">
+            <div class="header-logo">
+                <img th:src="@{/img/iconCarRent1.jpg}">
+            </div>
+        </a>
+        <div class="header-menu">
+            <div sec:authorize="isAuthenticated()">
+                <div th:if="${#authentication.principal.getRoles()==true}">
+                    <a th:href="@{/car/home}">Quản Lý Xe</a>
+                </div>           
+            </div>
+            <a th:href="@{/car/dsxe}">Xe Cho Thuê</a>
+            <a href="#">Về CarR</a>
+            <a href="#">Trở Thành Đối Tác</a>
+            <div sec:authorize="isAuthenticated()">
+                <a href="#">Chuyến Của Tôi</a>          
+            </div>
+            <div class="vertical-line"></div>
+            <div sec:authorize="isAuthenticated()">
+                <div class="profile">
+                    <div class="notification">
+                        <i class="fa-regular fa-bell" style="font-size: 1.3rem;"></i>
+                    </div>
+                    <a th:href="@{/guest}">
+                        <div class="profile-avatar" th:unless="${#authentication.principal.getPhoto()} == 'avatar.jpg'">
+                            <img th:src="${#authentication.principal.getPhoto()}" alt="">
+                        </div>
+                        <div class="profile-avatar" th:if="${#authentication.principal.getPhoto()} == 'avatar.jpg'">
+                            <img th:src="'/img/'+${#authentication.principal.getPhoto()}" alt="">
+                        </div>
+                    </a>
+                    <div class="dropdown">
+                        <a class="btn border-0 dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span class="name" sec:authentication="principal.fullname"></span>
+                        </a>
+    
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/guest}">Quản Lý Tài Khoản</a></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Đăng Xuất</a></li>
+                        </ul>
+                    </div>
+                </div>         
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <a th:href="@{/car/register}">Đăng Ký</a>
+                <a class="btn btn-light btn-login" th:href="@{/car/login}">Đăng Nhập</a>        
+            </div>
+        </div>
+    </div>
+</div>
